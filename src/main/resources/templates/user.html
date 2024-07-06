@@ -1,45 +1,118 @@
-<!DOCTYPE html>
+<!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Start</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>Security Bootstrap</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<br>
-<div class="container">
-    <h2>Страница пользователя: </h2>
-    <hr/>
-    <br>
-    <br>
-    <table class="table" th:object="${user}">
-        <thead>
-        <tr>
-            <th scope="col">Имя</th>
-            <th scope="col">Пароль</th>
-            <th scope="col">Email</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td th:text="${user.getUsername()}"></td>
-            <td th:text="${user.getPassword()}"></td>
-            <td th:text="${user.getEmail()}"></td>
-        </tr>
-        </tbody>
-    </table>
-</div>
-<div class="container">
-    <form th:method="POST" th:action="@{/logout}">
-        <button type="submit" class="btn btn-primary btn-xs">Выйти из системы</button>
-    </form>
-</div>
+<!-- Верхняя навигация -->
+<nav class="navbar bg-dark navbar-expand-sm bg-body-tertiary" data-bs-theme="dark" th:object="${user}">
+    <div class="container-fluid">
+        <span class="navbar-brand mx-0 mb-0 h1 top-menu" th:text="${user.getEmail()}"></span>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+                aria-controls="navbarText" aria-expanded="false" aria-label="Переключатель навигации">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav me-auto  mx-0 mb-0 mb-lg-0 top-menu">
+                <li class="nav-item">
+                    <a class="nav-link active ms-0" aria-current="page">with roles: </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active d-inline-block ps-0 ms-0" aria-current="page"
+                       th:each="r : ${user.getRoles()}" th:text="${r.getShortName()}"></a>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav ms-auto mb-0 mb-lg-0">
+                <li class="nav-item">
+                    <form th:method="POST" th:action="@{/logout}">
+                        <button type="submit" class="btn bg-body-tertiary btn-xs logout">Logout</button>
+                    </form>
+                    <!--                    <a class="nav-link" aria-current="page" href="/logout">Logout</a>-->
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav> <!-- Верхняя навигация -->
 
 
+<!-- Тело -->
+<div class="conteiner-fluid">
+    <div class="row g-0">
+        <div class="d-flex align-items-start">
 
+            <!-- Левое меню -->
+            <div class="col-2 ps-0 mt-3">
+                <div class="conteiner-fluid">
+                    <div class="nav flex-column nav-pills me-0" id="v-pills-tab" role="tablist"
+                         aria-orientation="vertical">
+                        <button class="nav-link text-start active" id="v-pills-profile-tab" data-bs-toggle="pill"
+                                data-bs-target="#user-panel" type="button" role="tab" aria-controls="user-panel"
+                                aria-selected="false">User
+                        </button>
+                    </div>
+                </div>
+            </div> <!-- Левое меню -->
+
+
+            <!-- Правое меню -->
+            <div class="col-10 bg-light admin-panel tab-content" id="v-pills-tabContent">
+
+                <!-- Юзер панель -->
+                <div class="container px-4 mt-3 tab-pane fade show active" id="user-panel" role="tabpanel"
+                     aria-labelledby="user-panel" tabindex="0">
+                    <h1>User infomation-page</h1>
+                    <div class="container border mt-4 px-0">
+                        <div class="row g-0 border-bottom bg-secondary-subtle">
+                            <div class="container">
+                                <h5 class="mx-3 my-3">About user</h5>
+                            </div>
+                        </div>
+                        <div class="row  g-0 bg-body">
+                            <div class="container mt-4 px-4">
+
+                                <!--  Таблица данных юзера  -->
+                                <table class="table table-striped border-top" th:object="${user}">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">Id</th>
+                                        <th scope="col">Username</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Role</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td th:text="${user.getId()}"></td>
+                                        <td th:text="${user.getUsername()}"></td>
+                                        <td th:text="${user.getEmail()}"></td>
+                                        <td>
+                                            <div class="d-inline-block" th:each="r : ${user.getRoles()}"
+                                                 th:text="${r.getShortName()}"></div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table> <!--  Таблица данных юзера  -->
+
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- Юзер панель -->
+
+            </div> <!-- Правое меню -->
+        </div>
+    </div>
+
+
+</div> <!-- Тело -->
+
+
+<script src="js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

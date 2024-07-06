@@ -29,13 +29,16 @@ public class AuthController {
         this.passwordEncoder = passwordEncoder;
     }
 
+
     @GetMapping("/login")
     public String loginPage() {
+
         return "auth/login";
     }
 
     @GetMapping("/register")
     public String registerPage(@ModelAttribute("user") User user) {
+
         return "auth/register";
     }
 

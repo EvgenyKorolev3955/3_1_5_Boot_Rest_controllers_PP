@@ -50,7 +50,14 @@ public class UserServiceImpl implements UserService {
         if (userFromDB.isPresent()) {
             return false;
         }
-        userRepository.save(user);
+        if (!user.getRoles().isEmpty()) {
+            userRepository.save(user);
+        } else {
+            Set<Role> roles = Stream.of(roleRepository.findById(1L)
+                    .get()).collect(Collectors.toSet());
+            user.setRoles(roles);
+            userRepository.save(user);
+        }
 
         return true;
 
@@ -82,9 +89,16 @@ public class UserServiceImpl implements UserService {
             updatedUser.setUsername(user.getUsername());
             updatedUser.setPassword(user.getPassword());
             updatedUser.setEmail(user.getEmail());
-            updatedUser.setRoles(user.getRoles());
-            userRepository.save(updatedUser);
 
+            if (user.getRoles() == null) {
+                Set<Role> roles = Stream.of(roleRepository.findById(1L)
+                        .get()).collect(Collectors.toSet());
+                updatedUser.setRoles(roles);
+            } else {
+                updatedUser.setRoles(user.getRoles());
+            }
+
+            userRepository.save(updatedUser);
             return true;
         }
         return false;
@@ -92,8 +106,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean deleteById(Long id) {
-        if (userRepository.findById(id).isPresent()) {
 
+        if (userRepository.findById(id).isPresent()) {
             userRepository.deleteById(id);
             return true;
         }

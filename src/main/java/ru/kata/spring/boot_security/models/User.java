@@ -1,5 +1,7 @@
 package ru.kata.spring.boot_security.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
@@ -77,6 +79,7 @@ public class User {
         this.email = email;
     }
 
+    @JsonManagedReference
     public Set<Role> getRoles() {
         return roles;
     }

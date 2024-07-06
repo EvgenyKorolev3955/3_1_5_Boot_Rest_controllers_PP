@@ -1,5 +1,7 @@
 package ru.kata.spring.boot_security.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.Objects;
 import java.util.Set;
@@ -53,6 +55,7 @@ public class Role {
         this.name = name;
     }
 
+    @JsonBackReference
     public Set<User> getUsers() {
         return users;
     }

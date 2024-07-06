@@ -1,0 +1,59 @@
+html {
+    font-size: 14px;
+}
+body {
+    font-size: 16px;
+    font-weight: 400;
+    min-width: 320px;
+}
+
+.top-menu {
+    font-size: 18px;
+}
+
+.admin-panel {
+    height: 100vh;
+}
+
+.btn-info {
+    color: #ffffff;
+    background-color: #087990;
+    border-color: #087990;
+
+}
+
+.btn-info:hover {
+    color: #e9ecef;
+    background-color: #055160;
+    border-color: #055160;
+}
+
+.logout {
+    color: #a7acb1;
+    font-size: 16px;
+}
+
+.logout:hover {
+    color: #ffffff;
+}
+
+input[readonly] {
+    background-color: #ced4da;
+}
+
+input[readonly]:hover {
+    background-color: #ced4da;
+}
+
+input[readonly]:focus {
+    background-color: #ced4da;
+}
+
+select[readonly] {
+    background-color: #ced4da;
+}
+
+.form-select {
+
+}
+
