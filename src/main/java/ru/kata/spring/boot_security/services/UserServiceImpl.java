@@ -50,13 +50,25 @@ public class UserServiceImpl implements UserService {
         if (userFromDB.isPresent()) {
             return false;
         }
-        if (!user.getRoles().isEmpty()) {
-            userRepository.save(user);
+        User userToSave = new User();
+        userToSave.setUsername(user.getUsername());
+        userToSave.setEmail(user.getEmail());
+        userToSave.setPassword(user.getPassword());
+        userToSave.setRoles(user.getRoles());
+
+        System.out.println(userToSave.toString() + "================================================");
+        if (!userToSave.getRoles().isEmpty()) {
+            System.out.println("РОЛИ НЕ ПУСТЫ У ЮЗЕРА ============================");
+            userToSave.setRoles(user.getRoles().stream()
+                    .map(role -> roleRepository.findById(role.getId()).orElseThrow())
+                    .collect(Collectors.toSet()));
+            userRepository.save(userToSave);
         } else {
             Set<Role> roles = Stream.of(roleRepository.findById(1L)
                     .get()).collect(Collectors.toSet());
-            user.setRoles(roles);
-            userRepository.save(user);
+            userToSave.setRoles(roles);
+            System.out.println("============userToSave = " + userToSave);
+            userRepository.save(userToSave);
         }
 
         return true;

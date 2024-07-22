@@ -37,34 +37,33 @@ public class InitDataBase {
         roles.add(new Role("ROLE_USER"));
         roles.add(new Role("ROLE_ADMIN"));
 
-//        Set<Role> adminRoles = new HashSet<>();
-//        adminRoles.add(new Role("ROLE_ADMIN"));
-
-
-        users.add(new User("admin"
+        users.add(new User("Admin"
                 , passwordEncoder.encode("admin")
                 , "admin@admin.com"
                 , roles));
 
-        users.add(new User("user"
+        users.add(new User("User"
                 , passwordEncoder.encode("user")
                 , "user@user.com"
                 , roles.stream().findFirst().stream().collect(Collectors.toSet())));
 
-        users.add(new User("user1"
+        users.add(new User("Ivan"
                 , passwordEncoder.encode("user")
-                , "user@user.com"
+                , "ivan1991@user.com"
                 , roles.stream().findFirst().stream().collect(Collectors.toSet())));
 
-        users.add(new User("user2"
+        users.add(new User("Alex"
                 , passwordEncoder.encode("user")
-                , "user@user.com"
+                , "alexivanov@user.com"
+                , roles.stream().findFirst().stream().collect(Collectors.toSet())));
+
+        users.add(new User("John"
+                , passwordEncoder.encode("user")
+                , "john2005@user.com"
                 , roles.stream().findFirst().stream().collect(Collectors.toSet())));
 
         System.out.println();
         userRepository.saveAll(users);
 
     }
-
-
 }

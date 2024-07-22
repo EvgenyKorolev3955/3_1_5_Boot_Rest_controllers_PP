@@ -11,9 +11,9 @@
 <body>
 
 <!-- Верхняя навигация -->
-<nav class="navbar bg-dark navbar-expand-sm bg-body-tertiary" data-bs-theme="dark" th:object="${user}">
+<nav class="navbar bg-dark navbar-expand-sm bg-body-tertiary" data-bs-theme="dark">
     <div class="container-fluid">
-        <span class="navbar-brand mx-0 mb-0 h1 top-menu" th:text="${user.getEmail()}"></span>
+        <span id="navEmail" class="navbar-brand mx-0 mb-0 h1 top-menu"></span>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
                 aria-controls="navbarText" aria-expanded="false" aria-label="Переключатель навигации">
             <span class="navbar-toggler-icon"></span>
@@ -24,8 +24,7 @@
                     <a class="nav-link active ms-0" aria-current="page">with roles: </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active d-inline-block ps-0 ms-0" aria-current="page"
-                       th:each="r : ${user.getRoles()}" th:text="${r.getShortName()}"></a>
+                    <a id="navRoles" class="nav-link active d-inline-block ps-0 ms-0" aria-current="page"></a>
                 </li>
             </ul>
 
@@ -34,7 +33,6 @@
                     <form th:method="POST" th:action="@{/logout}">
                         <button type="submit" class="btn bg-body-tertiary btn-xs logout">Logout</button>
                     </form>
-                    <!--                    <a class="nav-link" aria-current="page" href="/logout">Logout</a>-->
                 </li>
             </ul>
         </div>
@@ -78,7 +76,7 @@
                             <div class="container mt-4 px-4">
 
                                 <!--  Таблица данных юзера  -->
-                                <table class="table table-striped border-top" th:object="${user}">
+                                <table class="table table-striped border-top">
                                     <thead>
                                     <tr>
                                         <th scope="col">Id</th>
@@ -87,17 +85,7 @@
                                         <th scope="col">Role</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td th:text="${user.getId()}"></td>
-                                        <td th:text="${user.getUsername()}"></td>
-                                        <td th:text="${user.getEmail()}"></td>
-                                        <td>
-                                            <div class="d-inline-block" th:each="r : ${user.getRoles()}"
-                                                 th:text="${r.getShortName()}"></div>
-                                        </td>
-                                    </tr>
-                                    </tbody>
+                                    <tbody id="tbody"></tbody>
                                 </table> <!--  Таблица данных юзера  -->
 
                             </div>
@@ -114,5 +102,6 @@
 
 
 <script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/userCode.js"></script>
 </body>
 </html>

@@ -32,32 +32,25 @@ public class AuthController {
 
     @GetMapping("/login")
     public String loginPage() {
-
         return "auth/login";
     }
 
     @GetMapping("/register")
     public String registerPage(@ModelAttribute("user") User user) {
-
         return "auth/register";
     }
 
     @PostMapping("/register")
     public String register(@ModelAttribute("user") @Valid User user
             , BindingResult bindingResult) {
-
         userValidator.validate(user, bindingResult);
         if (bindingResult.hasErrors()) {
             return "auth/register";
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-
         if (!userService.registerUser(user)) {
             return "auth/register";
         }
-
         return "redirect:/auth/login";
     }
-
-
 }

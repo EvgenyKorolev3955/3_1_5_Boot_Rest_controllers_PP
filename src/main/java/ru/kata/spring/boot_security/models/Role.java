@@ -34,7 +34,6 @@ public class Role {
     public Role(long l, String roleUser) {
     }
 
-
     public long getId() {
         return id;
     }
